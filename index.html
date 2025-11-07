@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Кликер с ПРЕСТИЖЕМ</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        body {
+            font-family: Arial;
+            background: #1a1a2e;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+        .score {
+            font-size: 40px;
+            color: gold;
+            margin: 20px;
+        }
+        .click-btn {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: purple;
+            color: white;
+            font-size: 18px;
+            border: none;
+            margin: 20px;
+            cursor: pointer;
+        }
+        .prestige-btn {
+            background: orange;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            margin: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>🎮 Кликер с ПРЕСТИЖЕМ</h1>
+    
+    <div class="score" id="score">0</div>
+    
+    <button class="click-btn" id="clickBtn">👆 КЛИК!</button>
+    
+    <div>
+        <button class="prestige-btn" onclick="doPrestige()" id="prestigeBtn">
+            🌟 ПРЕСТИЖ (0)
+        </button>
+    </div>
+    
+    <div style="margin-top: 20px;">
+        <p>💪 Сила: <span id="power">1</span></p>
+        <p>⭐ Уровень престижа: <span id="prestigeLevel">0</span></p>
+        <p>💫 Бонус: <span id="bonus">+0%</span></p>
+    </div>
+
+    <script>
+        // Простые переменные
+        let score = 0;
+        let power = 1;
+        let prestigeLevel = 0;
+        let prestigeBonus = 1.0;
+        
+        // Загрузка
+        function loadGame() {
+            const saved = localStorage.getItem('simpleClicker');
+            if (saved) {
+                const data = JSON.parse(saved);
+                score = data.score || 0;
+                power = data.power || 1;
+                prestigeLevel = data.prestigeLevel || 0;
+                prestigeBonus = data.prestigeBonus || 1.0;
+            }
+        }
+        
+        // Сохранение
+        function saveGame() {
+            const data = { score, power, prestigeLevel, prestigeBonus };
+            localStorage.setItem('simpleClicker', JSON.stringify(data));
+        }
+        
+        // Обновление экрана
+        function updateDisplay() {
+            document.getElementById('score').textContent = score;
+            document.getElementById('power').textContent = power;
+            document.getElementById('prestigeLevel').textContent = prestigeLevel;
+            document.getElementById('bonus').textContent = '+' + ((prestigeBonus - 1) * 100) + '%';
+            
+            // Кнопка престижа
+            const prestigeBtn = document.getElementById('prestigeBtn');
+            prestigeBtn.textContent = '🌟 ПРЕСТИЖ (' + prestigeLevel + ')';
+            
+            if (score >= 1000) { // Всего 1000 для теста!
+                prestigeBtn.disabled = false;
+                prestigeBtn.style.background = 'gold';
+            } else {
+                prestigeBtn.disabled = true;
+                prestigeBtn.style.background = 'gray';
+            }
+        }
+        
+        // Клик
+        document.getElementById('clickBtn').onclick = function() {
+            score += power * prestigeBonus;
+            updateDisplay();
+            saveGame();
+        };
+        
+        // ПРЕСТИЖ
+        function doPrestige() {
+            if (score >= 1000) {
+                prestigeLevel++;
+                prestigeBonus = 1.0 + (prestigeLevel * 0.10); // +10% за уровень
+                
+                // Сброс
+                score = 0;
+                power = 1;
+                
+                alert('🎉 ПРЕСТИЖ ' + prestigeLevel + '! +' + (prestigeLevel * 10) + '% к доходу!');
+              updateDisplay();
+                saveGame();
+            }
+        }
+        
+        // Запуск
+        loadGame();
+        updateDisplay();
+        
+        // Telegram
+        if (window.Telegram && Telegram.WebApp) {
+            Telegram.WebApp.expand();
+            Telegram.WebApp.ready();
+        }
+        
+        console.log('✅ Кликер запущен! Престиж готов!');
+    </script>
+</body>
+</html>
