@@ -190,27 +190,38 @@ Thread(target=auto_save_loop, daemon=True).start()
 # ===== ТЕЛЕГРАМ КОМАНДЫ =====
 
 @bot.message_handler(commands=['start'])
-def start_game(message):
+def start_command(message):
+    # Существующая логика игры
     user_id = message.from_user.id
     username = message.from_user.first_name
     
     if user_id not in user_games:
         user_games[user_id] = ClickerGame(user_id)
-        bot.send_message(message.chat.id, 
-                        f"🎮 Привет, {username}! Добро пожаловать в *Мега Кликер*!\n\n"
-                        f"🌟 *Новая функция:* Система престижа!\n"
-                        f"Зарабатывай 1M очков и получай +10% к доходу!",
-                        parse_mode='Markdown')
-    else:
-        game = user_games[user_id]
-        if game.prestige_level > 0:
-            bot.send_message(message.chat.id,
-                           f"🔄 Возвращаемся к игре, {username}!\n"
-                           f"⭐ Уровень престижа: {game.prestige_level}\n"
-                           f"💫 Бонус: +{int((game.prestige_bonus - 1) * 100)}% к доходу",
-                           parse_mode='Markdown')
-        else:
-            bot.send_message(message.chat.id, f"🔄 Возвращаемся к игре, {username}!")
+        bot.send_message(message.chat.id, f"🎮 Привет, {username}! Добро пожаловать в *Мега Кликер*!", parse_mode='Markdown')
+    
+    # ↓↓↓ ДОБАВЬ ЭТОТ БЛОК ↓↓↓
+    markup = InlineKeyboardMarkup()
+    
+    # Кнопка для Mini App
+    web_app_btn = InlineKeyboardButton(
+        text="🎮 ОТКРЫТЬ В MINI APP", 
+        web_app=WebAppInfo(url=MINI_APP_URL)
+    )
+    markup.add(web_app_btn)
+    
+    # Отправляем сообщение с кнопкой Mini App
+    bot.send_message(
+        message.chat.id,
+        "🚀 *Доступна новая версия игры!*\n\n"
+        "• Лучшая графика\n• Анимации\n• Удобный интерфейс\n\n"
+        "Попробуйте Mini App версию:",
+        parse_mode='Markdown',
+        reply_markup=markup
+    )
+    # ↑↑↑ ДОБАВЬ ЭТОТ БЛОК ↑↑↑
+    
+    # Показываем обычное игровое меню (существующий код)
+    show_main_menu(message)
     
     show_main_menu(message)
    def show_main_menu(message):
@@ -418,4 +429,5 @@ if name == "main":
     print("🎮 Telegram Кликер Бот с престижем запущен!")
     print("📍 Ищите бота в Telegram")
     print("🌟 Система престижа активна!")
+
     bot.polling(none_stop=True)
