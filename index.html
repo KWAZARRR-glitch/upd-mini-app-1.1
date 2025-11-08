@@ -616,6 +616,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
         console.log("🎮 Мега Кликер PRO запущен!");
     </script>
+
+    <!-- ↓↓↓ ДОБАВЬ ЭТОТ КОД В САМЫЙ КОНЕЦ ↓↓↓ -->
+    <script>
+        // Запускаем при загрузке страницы
+        document.addEventListener('DOMContentLoaded', function() {
+            // Telegram инициализация
+            if (window.Telegram && Telegram.WebApp) {
+                Telegram.WebApp.expand();
+                Telegram.WebApp.ready();
+            }
+            
+            // Проверяем параметры запуска
+            handleTelegramStart();
+            
+            // Запускаем игру (твоя существующая функция)
+            loadGame();
+            updateDisplay();
+        });
+    </script>
+    <!-- ↑↑↑ ДОБАВЬ ЭТОТ КОД В САМЫЙ КОНЕЦ ↑↑↑ -->
 </body>
     <footer><p> &copy; 2025 бот-кликер-KVA clicker.версии 1.1,все права защищены</p>
     <p> &copy; 2025 bot-clicker-KVA clicker.version 1.1,all ride reserved</p></footer>
