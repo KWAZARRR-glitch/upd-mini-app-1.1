@@ -14,7 +14,7 @@ def start_command(message):
     
     web_app_button = InlineKeyboardButton(
         text="🎮 ЗАПУСТИТЬ КЛИКЕР", 
-        web_app=WebAppInfo(url=MINI_APP_URL)
+        web_app=WebAppInfo(url=https://kwazarrr-glitch.github.io/upd-mini-app-1.1/)
     )
     markup.add(web_app_button)
 
@@ -47,7 +47,7 @@ def game_command(message):
 def help_command(message):
     """Помощь"""
     help_text = """
-🎮 *Мега Кликер - Помощь*
+🎮 *КВА Кликер - Помощь*
 
 *Команды:*
 /start - Запустить игру
@@ -65,3 +65,4 @@ if name == "main":
     print("🚀 Ожидаю сообщений...")
 
     bot.polling(none_stop=True)
+
