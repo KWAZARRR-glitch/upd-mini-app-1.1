@@ -5,7 +5,7 @@ from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
 BOT_TOKEN = "8390334481:AAGM-WTxKe88otShhQYK-YaSlWXKqcLg0fQ"  # Твой токен от @BotFather
 MINI_APP_URL = "https://kwazarrr-glitch.github.io/upd-mini-app-1.1/"  # Твой GitHub Pages
 
-bot = telebot.TeleBot(BOT_TOKEN)
+bot = telebot.TeleBot(8390334481:AAGM-WTxKe88otShhQYK-YaSlWXKqcLg0fQ)
 
 @bot.message_handler(commands=['start'])
 def start_command(message):
@@ -65,4 +65,5 @@ if name == "main":
     print("🚀 Ожидаю сообщений...")
 
     bot.polling(none_stop=True)
+
 
