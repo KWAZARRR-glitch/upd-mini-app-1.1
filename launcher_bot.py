@@ -2,8 +2,8 @@ import telebot
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton, WebAppInfo
 
 # ⚠️ ЗАМЕНИ ЭТИ ЗНАЧЕНИЯ НА СВОИ ⚠️
-BOT_TOKEN = "7538452613:AAH6PafgCJ8eB5bI3kAmXb2PxR9tYzqABCD"  # Твой токен от @BotFather
-MINI_APP_URL = "https://твой-логин.github.io/clicker-prestige-fixed"  # Твой GitHub Pages
+BOT_TOKEN = "8390334481:AAGM-WTxKe88otShhQYK-YaSlWXKqcLg0fQ"  # Твой токен от @BotFather
+MINI_APP_URL = "https://kwazarrr-glitch.github.io/upd-mini-app-1.1/"  # Твой GitHub Pages
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
@@ -63,4 +63,5 @@ if name == "main":
     print("🤖 Бот-запускатель запущен!")
     print("📍 Команда /start откроет Mini App")
     print("🚀 Ожидаю сообщений...")
+
     bot.polling(none_stop=True)
